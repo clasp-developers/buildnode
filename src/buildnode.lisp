@@ -166,7 +166,8 @@
     (puri:uri
      (cl-ppcre:regex-replace-all
       " "
-      #?|file://${xhtml1-transitional.dtd}|
+      (with-output-to-string (s) (write-string "file://" s) (princ xhtml1-transitional.dtd s))
+      #| #?|file://${xhtml1-transitional.dtd}| |#
       "%20")))))
 
 (defgeneric text-of-dom-snippet  (el &optional splice stream)
