@@ -70,7 +70,7 @@
 				  "Data" "Font"  "Interior" "NamedCell" "NamedRange" "Names" 
 				  "NumberFormat" "Protection" "Row" "Style" "Styles" "Table" 
 				  "Workbook" "Worksheet")
-		     (#:currency-cell #:date-cell #:string-cell #:header-cell #:title-cell))
+		     (#:currency-cell #:date-cell #:string-cell #:header-cell #:number-cell #:title-cell))
 
   (excel-tag-package :urn.schemas-microsoft-com.office.excel :x
 		     ("AutoFilter" "AutoFilterAnd" "AutoFilterColumn" "AutoFilterCondition"
@@ -248,6 +248,11 @@
 	      (string v))))
     (ss:cell `("ss:StyleID" ,style-id)
       (ss:data '("ss:Type" "Number") sv ))))
+
+(defun ss::number-cell (v &optional (style-id "Default"))
+  (ss:cell `("ss:StyleID" ,style-id)
+    (ss:data '("ss:Type" "Number") (format nil "~0,5f" v))))
+
 
 (defun ss::string-cell (v &optional (style-id "String"))
   (ss:cell `("ss:StyleID" ,style-id)
